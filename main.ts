@@ -1,38 +1,27 @@
-bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () {
-    command = bluetooth.uartReadUntil(serial.delimiters(Delimiters.NewLine))
-    commadParts = command.split("=")
-    commandName = commadParts[0]
-    commandValue = parseFloat(commadParts[1])
-
-    latestCommands[commandName] = commandValue
-})
-bluetooth.onBluetoothConnected(function () {
-    led.plot(2, 2)
-})
-let commandValue = 0
-let commandName = ""
-let commadParts: string[] = []
-let command = ""
-let rightInputType = 0
-let state = 0
-let lastState = 0
 let y = 0
 let x = 0
 let xLast = 0
 let yLast = 0
-basic.clearScreen()
-
-x = 0
-y = 0
-state = 0
-lastState = 0
-rightInputType = 0
+let state = 0
+let lastState = 0
+let rightInputType = 0
 let latestCommands: { [key: string]: number } = {}
 
-
-bluetooth.startUartService()
+basic.clearScreen()
 pfTransmitter.connectIrSenderLed(AnalogPin.P0)
 
+bluetooth.startUartService()
+
+bluetooth.onBluetoothConnected(function () {
+    led.plot(2, 2)
+})
+
+bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () {
+    let command = bluetooth.uartReadUntil(serial.delimiters(Delimiters.NewLine))
+    let commadParts = command.split("=")
+
+    latestCommands[commadParts[0]] = parseFloat(commadParts[1])
+})
 
 basic.forever(function () {
     while (Object.keys(latestCommands).length) {

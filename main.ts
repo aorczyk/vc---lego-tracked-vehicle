@@ -16,18 +16,17 @@ let command = ""
 let rightInputType = 0
 let state = 0
 let lastState = 0
-let oy = 0
-let ox = 0
-let xLed = 0
-let yLed = 0
+let y = 0
+let x = 0
+let xLast = 0
+let yLast = 0
 basic.clearScreen()
 
-ox = 0
-oy = 0
+x = 0
+y = 0
 state = 0
 lastState = 0
 rightInputType = 0
-let queue: string[] = []
 let latestCommands: { [key: string]: number } = {}
 
 
@@ -54,18 +53,18 @@ basic.forever(function () {
             bluetooth.uartWriteLine("vc;m;VC - LEGO;")
             bluetooth.uartWriteLine("vc;m;Mode 1;1")
         } else if (commandName == "oy" || commandName == "sl" || commandName == "jry") {
-            oy = commandValue
+            y = commandValue
             if (state == 1) {
-                pfTransmitter.setSpeed(1, 1, oy - ox)
-                pfTransmitter.setSpeed(1, 2, (oy + ox) * -1)
+                pfTransmitter.setSpeed(1, 1, y - x)
+                pfTransmitter.setSpeed(1, 2, (y + x) * -1)
             } else {
                 pfTransmitter.setSpeed(1, 1, commandValue)
             }
         } else if (commandName == "ox" || commandName == "sr" || commandName == "jrx") {
-            ox = commandValue
+            x = commandValue
             if (state == 1) {
-                pfTransmitter.setSpeed(1, 1, oy - ox)
-                pfTransmitter.setSpeed(1, 2, (oy + ox) * -1)
+                pfTransmitter.setSpeed(1, 1, y - x)
+                pfTransmitter.setSpeed(1, 2, (y + x) * -1)
             } else {
                 pfTransmitter.setSpeed(1, 2, commandValue)
             }
@@ -90,28 +89,28 @@ basic.forever(function () {
                 }
             }
         } else if (commandName == "up") {
-            ox = -7
-            oy = 7
+            x = -7
+            y = 7
             pfTransmitter.setSpeed(1, 1, -7)
             pfTransmitter.setSpeed(1, 2, 7)
         } else if (commandName == "down") {
-            ox = 7
-            oy = -7
+            x = 7
+            y = -7
             pfTransmitter.setSpeed(1, 1, 7)
             pfTransmitter.setSpeed(1, 2, -7)
         } else if (commandName == "right") {
-            ox = -7
-            oy = -7
+            x = -7
+            y = -7
             pfTransmitter.setSpeed(1, 1, -7)
             pfTransmitter.setSpeed(1, 2, -7)
         } else if (commandName == "left") {
-            ox = 7
-            oy = 7
+            x = 7
+            y = 7
             pfTransmitter.setSpeed(1, 1, 7)
             pfTransmitter.setSpeed(1, 2, 7)
         } else if (commandName == "none") {
-            ox = 0
-            oy = 0
+            x = 0
+            y = 0
             pfTransmitter.brake(1, 1)
             pfTransmitter.brake(1, 2)
         }
@@ -129,11 +128,11 @@ basic.forever(function () {
             }
         }
 
-        if (xLed != ox || yLed != oy) {
-            led.unplot(Math.floor(2 * xLed / 7) + 2, Math.floor(2 * yLed / 7) + 2)
-            xLed = ox
-            yLed = oy
-            led.plot(Math.floor(2 * xLed / 7) + 2, Math.floor(2 * yLed / 7) + 2)
+        if (xLast != x || yLast != y) {
+            led.unplot(Math.floor(2 * xLast / 7) + 2, Math.floor(2 * yLast / 7) + 2)
+            xLast = x
+            yLast = y
+            led.plot(Math.floor(2 * xLast / 7) + 2, Math.floor(2 * yLast / 7) + 2)
         }
     }
 })

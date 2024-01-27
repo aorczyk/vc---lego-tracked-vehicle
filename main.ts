@@ -109,11 +109,11 @@ basic.forever(function () {
             if (state == 0) {
                 bluetooth.uartWriteLine("vc;b;1;1")
                 bluetooth.uartWriteLine("vc;b;2;0")
-                bluetooth.uartWriteLine("vc;m;Mode 1;2")
+                bluetooth.uartWriteLine("vc;m;Mode 1;1")
             } else {
                 bluetooth.uartWriteLine("vc;b;1;0")
                 bluetooth.uartWriteLine("vc;b;2;1")
-                bluetooth.uartWriteLine("vc;m;Mode 2;2")
+                bluetooth.uartWriteLine("vc;m;Mode 2;1")
             }
         }
 

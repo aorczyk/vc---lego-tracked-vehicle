@@ -78,25 +78,25 @@ basic.forever(function () {
                 }
             }
         } else if (commandName == "up") {
-            x = -7
-            y = 7
-            pfTransmitter.setSpeed(1, 1, -7)
-            pfTransmitter.setSpeed(1, 2, 7)
+            x = -4
+            y = 4
+            pfTransmitter.setSpeed(1, 1, x)
+            pfTransmitter.setSpeed(1, 2, y)
         } else if (commandName == "down") {
-            x = 7
-            y = -7
-            pfTransmitter.setSpeed(1, 1, 7)
-            pfTransmitter.setSpeed(1, 2, -7)
+            x = 4
+            y = -4
+            pfTransmitter.setSpeed(1, 1, x)
+            pfTransmitter.setSpeed(1, 2, y)
         } else if (commandName == "right") {
-            x = -7
-            y = -7
-            pfTransmitter.setSpeed(1, 1, -7)
-            pfTransmitter.setSpeed(1, 2, -7)
+            x = -3
+            y = -3
+            pfTransmitter.setSpeed(1, 1, x)
+            pfTransmitter.setSpeed(1, 2, y)
         } else if (commandName == "left") {
-            x = 7
-            y = 7
-            pfTransmitter.setSpeed(1, 1, 7)
-            pfTransmitter.setSpeed(1, 2, 7)
+            x = 3
+            y = 3
+            pfTransmitter.setSpeed(1, 1, x)
+            pfTransmitter.setSpeed(1, 2, y)
         } else if (commandName == "none") {
             x = 0
             y = 0
